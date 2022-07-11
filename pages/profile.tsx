@@ -14,7 +14,7 @@ const ProfilePage: NextPage<IProfilePageProps> = ({ data }) => {
   const faunaUser = faunaUserQuery.data;
   return (
     <>
-      <PageLoading isLoading={faunaUserQuery.status === "loading"} />
+      {faunaUserQuery.status === "loading" && <PageLoading />}
       {faunaUserQuery.status === "success" && <Profile faunaUser={faunaUser} />}
       {faunaUserQuery.status === "error" && (
         <pre>{JSON.stringify(faunaUserQuery.error, null, 2)}</pre>

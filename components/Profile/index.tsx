@@ -1,35 +1,62 @@
-import PlayButton from "@components/app/PlayButton";
-import LogoutButton from "@components/common/Auth/LogoutButton";
-import DisplayField from "@components/common/Fields/DisplayStringField/DisplayField";
-import UserImage from "@components/common/Fields/Images/UserImage";
-import { FC } from "react";
-import ChangeDisplayName from "./ChangeDisplayName";
 import { IProfileProps } from "./types";
+import { FC } from "react";
+import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 const Profile: FC<IProfileProps> = ({ faunaUser }) => {
+  const router = useRouter();
+
   return (
-    <div className="grid place-items-center">
-      <div>
-        <UserImage
-          src={
-            faunaUser?.image ||
-            "https://randomuser.me/api/portraits/women/81.jpg"
-          }
-        />
-        <DisplayField fieldName={"Name"} fieldValue={faunaUser.name} />
-        <DisplayField
-          fieldName={"Display Name"}
-          fieldValue={faunaUser.displayName || faunaUser.name}
-        />
-        <DisplayField fieldName={"Email"} fieldValue={faunaUser.email} />
+    <>
+      <div className="grid place-items-center">
+        {/* AVATAR */}
+        <div className="avatar">
+          <div className="w-24 rounded-full">
+            <img src={faunaUser?.image || null} />
+          </div>
+        </div>
+        {/* Read Fields */}
+        <div>
+          <div className="flex justify-between border-b p-1 m-1 border-accent">
+            <p className="mx-1 text-lg">Name:</p>
+            <p className="text-primary mx-1 text-lg">{faunaUser.name}</p>
+          </div>
+
+          <div className="flex justify-between border-b p-1 m-1 border-accent">
+            <p className="mx-1 text-lg">Display Name:</p>
+            <p className="text-primary mx-1 text-lg">
+              {faunaUser.displayName || faunaUser.name}
+            </p>
+          </div>
+
+          <div className="flex justify-between border-b p-1 m-1 border-accent">
+            <p className="mx-1 text-lg">Email:</p>
+            <p className="text-primary mx-1 text-lg">{faunaUser.email}</p>
+          </div>
+        </div>
       </div>
 
-      <ChangeDisplayName faunaUser={faunaUser} />
-      <div className="grid place-items-center">
-        <LogoutButton />
-        <PlayButton />
+      <div className="grid place-items-center m-2">
+        <div className="flex">
+          <button
+            className="btn btn-error m-2 p-2"
+            onClick={() => {
+              router.push("/").then(() => signOut());
+            }}
+          >
+            Sign Out
+          </button>
+          <button
+            className="btn btn-success m-2 p-2"
+            onClick={() => {
+              router.push("/play").then(() => {});
+            }}
+          >
+            Play
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

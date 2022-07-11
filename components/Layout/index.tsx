@@ -93,7 +93,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
           </div>
           <div className="flex-1 px-2 mx-2">
             <NextLink href={"/"}>
-              <a className="text-accent">4word.app</a>
+              <a className="text-primary">4word.app</a>
             </NextLink>
           </div>
           <div className="flex-none hidden lg:block">
@@ -119,7 +119,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
             return (
               <li key={i}>
                 <NextLink href={l.link}>
-                  <a className="text-accent">{l.html}</a>
+                  <a className="text-primary">{l.html}</a>
                 </NextLink>
               </li>
             );

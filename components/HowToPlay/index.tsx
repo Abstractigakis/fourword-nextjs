@@ -1,7 +1,7 @@
 const HowToPlay = () => {
   return (
     <div className="m-1 grid place-items-center">
-      <h1 className="m-2 grid place-items-center text-accent text-2xl">
+      <h1 className="m-2 grid place-items-center text-primary text-2xl">
         How To Play?
       </h1>
       <div className="text-sm max-w-[290px]">
