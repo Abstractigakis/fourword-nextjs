@@ -1,5 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", 
+    "paths": {
+      "@data/*": ["data/*"],
+      "@lib/*": ["lib/*"],
+      "@utils/*": ["utils/*"],
+      "@components/*": ["components/*"],
+      "@features/*": ["features/*"],
+      "@middleware/*": ["lib/nextAuth/middleware/*"],
+    },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
