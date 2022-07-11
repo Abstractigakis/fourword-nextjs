@@ -1,9 +1,9 @@
 const HowToPlay = () => {
   return (
     <div className="m-1 grid place-items-center">
-      <div className="m-2 grid place-items-center text-yellow-300">
+      <h1 className="m-2 grid place-items-center text-primary text-5xl">
         How To Play?
-      </div>
+      </h1>
       <div className="text-sm max-w-[290px]">
         <div className="m-2 grid place-items-center">
           Make moves by changing one letter. If the result is a word in our
@@ -14,7 +14,7 @@ const HowToPlay = () => {
             WORD
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-yellow-300"
+              className="h-5 w-5 text-primary"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -32,7 +32,7 @@ const HowToPlay = () => {
             WARD
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-green-600"
+              className="h-5 w-5 text-info"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -49,7 +49,7 @@ const HowToPlay = () => {
             WORD
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-yellow-300"
+              className="h-5 w-5 text-primary"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -67,7 +67,7 @@ const HowToPlay = () => {
             WIRD
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-red-600"
+              className="h-5 w-5 text-error"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -88,7 +88,7 @@ const HowToPlay = () => {
           SALE
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-yellow-300"
+            className="h-5 w-5 text-primary"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -106,7 +106,7 @@ const HowToPlay = () => {
           SAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-yellow-300"
+            className="h-5 w-5 text-primary"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -124,7 +124,7 @@ const HowToPlay = () => {
           FAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-yellow-300"
+            className="h-5 w-5 text-primary"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -142,7 +142,7 @@ const HowToPlay = () => {
           GAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-red-600"
+            className="h-5 w-5 text-error"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -159,7 +159,7 @@ const HowToPlay = () => {
           SALE
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-yellow-300"
+            className="h-5 w-5 text-primary"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -177,7 +177,7 @@ const HowToPlay = () => {
           SAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-yellow-300"
+            className="h-5 w-5 text-primary"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -195,7 +195,7 @@ const HowToPlay = () => {
           GAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-green-600"
+            className="h-5 w-5 text-info"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -210,7 +210,7 @@ const HowToPlay = () => {
         </div>
         <div className="m-2">
           There are new puzzles every day, and leaderboards for each puzzle
-          ranked by lowest <span className="text-yellow-300">moves</span>, and
+          ranked by lowest <span className="text-primary">moves</span>, and
           first to complete
         </div>
       </div>
