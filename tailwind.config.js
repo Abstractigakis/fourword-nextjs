@@ -13,7 +13,7 @@ module.exports = {
 
   daisyui: {
     styled: true,
-    themes: true,
+    themes: ["forest"],
     base: true,
     utils: true,
     logs: process.env.BASE_RL == "http://localhost:3000",
