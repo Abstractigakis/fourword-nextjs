@@ -1,20 +1,22 @@
 const HowToPlay = () => {
   return (
     <div className="m-1 grid place-items-center">
-      <h1 className="m-2 grid place-items-center text-primary text-5xl">
+      <h1 className="m-2 grid place-items-center text-accent text-2xl">
         How To Play?
       </h1>
       <div className="text-sm max-w-[290px]">
-        <div className="m-2 grid place-items-center">
-          Make moves by changing one letter. If the result is a word in our
-          dictionary, your move is successful
+        <div className="m-2">
+          <span className="text-accent">
+            Make moves by changing one letter.{" "}
+          </span>
+          If the result is a word in our dictionary, your move is successful
         </div>
         <div className="m-2 grid place-items-center">
           <div className="flex">
             WORD
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-primary"
+              className="h-5 w-5 text-accent"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -32,7 +34,7 @@ const HowToPlay = () => {
             WARD
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-info"
+              className="h-5 w-5 text-success"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -49,7 +51,7 @@ const HowToPlay = () => {
             WORD
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-primary"
+              className="h-5 w-5 text-accent"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -88,7 +90,7 @@ const HowToPlay = () => {
           SALE
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-primary"
+            className="h-5 w-5 text-accent"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -106,7 +108,7 @@ const HowToPlay = () => {
           SAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-primary"
+            className="h-5 w-5 text-accent"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -124,7 +126,7 @@ const HowToPlay = () => {
           FAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-primary"
+            className="h-5 w-5 text-accent"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -159,7 +161,7 @@ const HowToPlay = () => {
           SALE
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-primary"
+            className="h-5 w-5 text-accent"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -177,7 +179,7 @@ const HowToPlay = () => {
           SAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-primary"
+            className="h-5 w-5 text-accent"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -195,7 +197,7 @@ const HowToPlay = () => {
           GAME
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-info"
+            className="h-5 w-5 text-success"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -209,9 +211,10 @@ const HowToPlay = () => {
           </svg>
         </div>
         <div className="m-2">
-          There are new puzzles every day, and leaderboards for each puzzle
-          ranked by lowest <span className="text-primary">moves</span>, and
-          first to complete
+          There are new puzzles every day, and leaderboards for{" "}
+          <span className="text-accent">
+            each puzzle ranked by lowest moves, and first to complete
+          </span>
         </div>
       </div>
     </div>

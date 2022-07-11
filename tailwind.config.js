@@ -16,15 +16,15 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          primary: "#a991f7",
-          secondary: "#f6d860",
-          accent: "#37cdbe",
-          neutral: "#3d4451",
-          "base-100": "#ffffff",
+          primary: "#fcdf47",
+          secondary: "#ffffff",
+          accent: "#F3CC30",
+          neutral: "#20134E",
+          "base-100": "#111827",
           info: "#53C0F3",
-          success: "#71EAD2",
+          success: "#169c49",
           warning: "#F3CC30",
-          error: "#E24056",
+          error: "#dc2626",
           "--rounded-box": "1rem", // border radius rounded-box utility class, used in card and other large boxes
           "--rounded-btn": "0.5rem", // border radius rounded-btn utility class, used in buttons and similar element
           "--rounded-badge": "1.9rem", // border radius rounded-badge utility class, used in badges and similar

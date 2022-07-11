@@ -70,7 +70,7 @@ const links: INavLink[] = [
 
 const Layout: FC<ILayoutProps> = ({ children }) => {
   return (
-    <div className="drawer text-secondary">
+    <div className="drawer">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         <div className="w-full navbar bg-base-300">
@@ -93,7 +93,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
           </div>
           <div className="flex-1 px-2 mx-2">
             <NextLink href={"/"}>
-              <a className="text-primary">4word.app</a>
+              <a className="text-accent">4word.app</a>
             </NextLink>
           </div>
           <div className="flex-none hidden lg:block">
@@ -119,7 +119,7 @@ const Layout: FC<ILayoutProps> = ({ children }) => {
             return (
               <li key={i}>
                 <NextLink href={l.link}>
-                  <a>{l.html}</a>
+                  <a className="text-accent">{l.html}</a>
                 </NextLink>
               </li>
             );
