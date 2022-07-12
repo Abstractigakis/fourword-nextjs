@@ -1,12 +1,95 @@
+import Game from "@components/Wordate/Game";
+import GameControllerFirstRow from "@components/Wordate/GameControllerFirstRow";
+import GameControllerSecondRow from "@components/Wordate/GameControllerSecondRow";
+import FuturePuzzle from "@components/Wordate/Messages/FuturePuzzle";
+import PastPuzzle from "@components/Wordate/Messages/PastPuzzle";
+import Stats from "@components/Wordate/Stats";
 import { IFaunaUser } from "@lib/faunadb/types";
-import { FC } from "react";
+import { DAY_ZERO, TODAY } from "@lib/utils/constants";
+import { dateToPuzzleId } from "@lib/utils/dateHelpers";
+import { useFaunaPuzzlesQuery } from "hooks";
+import { FC, useState } from "react";
 
 export interface IPlayProps {
   faunaUser: IFaunaUser;
 }
 
 const Play: FC<IPlayProps> = ({ faunaUser }) => {
-  return <div>Play</div>;
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [puzzleLen, setPuzzleLen] = useState<number>(4);
+  const calendarOpen = useState<boolean>(true);
+  const viewState = useState<"game" | "stats">("game");
+  const [view, setView] = viewState;
+
+  const faunaPuzzlesQuery = useFaunaPuzzlesQuery(dateToPuzzleId(selectedDate));
+  const faunaPuzzles = faunaPuzzlesQuery.data;
+
+  const pastDate = selectedDate < DAY_ZERO;
+  const futureDate = selectedDate > TODAY;
+  const validDate = !futureDate && !pastDate;
+
+  return (
+    <>
+      {faunaPuzzlesQuery.status === "success"}
+      <div className="grid place-items-center">
+        <GameControllerFirstRow
+          faunaUser={faunaUser}
+          viewState={viewState}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          modalState={calendarOpen}
+        />
+
+        {faunaPuzzlesQuery.status === "success" && (
+          <GameControllerSecondRow
+            faunaPuzzles={faunaPuzzles}
+            puzzleLen={puzzleLen}
+            setPuzzleLen={setPuzzleLen}
+          />
+        )}
+
+        {pastDate && (
+          <PastPuzzle
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+        )}
+
+        {futureDate && (
+          <FuturePuzzle
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+          />
+        )}
+
+        {faunaPuzzlesQuery.status === "success" &&
+          validDate &&
+          view === "game" && (
+            <Game
+              faunaPuzzle={faunaPuzzles[puzzleLen - 4]}
+              faunaUser={faunaUser}
+              setView={setView}
+              setCalendarOpen={calendarOpen[1]}
+            />
+          )}
+
+        {faunaPuzzlesQuery.status === "success" &&
+          validDate &&
+          view === "stats" && (
+            <Stats
+              faunaPuzzle={faunaPuzzles[puzzleLen - 4]}
+              faunaUser={faunaUser}
+            />
+          )}
+
+        {/* {faunaPuzzlesQuery.status === "error" && (
+          <GenericError
+            message={JSON.stringify(faunaPuzzlesQuery.error, null, 2)}
+          />
+        )} */}
+      </div>
+    </>
+  );
 };
 
 export default Play;

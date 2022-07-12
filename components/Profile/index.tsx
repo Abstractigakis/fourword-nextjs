@@ -19,19 +19,19 @@ const Profile: FC<IProfileProps> = ({ faunaUser }) => {
         <div>
           <div className="flex justify-between border-b p-1 m-1 border-accent">
             <p className="mx-1 text-lg">Name:</p>
-            <p className="text-primary mx-1 text-lg">{faunaUser.name}</p>
+            <p className="mx-1 text-lg">{faunaUser.name}</p>
           </div>
 
           <div className="flex justify-between border-b p-1 m-1 border-accent">
             <p className="mx-1 text-lg">Display Name:</p>
-            <p className="text-primary mx-1 text-lg">
+            <p className="mx-1 text-lg">
               {faunaUser.displayName || faunaUser.name}
             </p>
           </div>
 
           <div className="flex justify-between border-b p-1 m-1 border-accent">
             <p className="mx-1 text-lg">Email:</p>
-            <p className="text-primary mx-1 text-lg">{faunaUser.email}</p>
+            <p className="mx-1 text-lg">{faunaUser.email}</p>
           </div>
         </div>
       </div>
