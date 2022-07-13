@@ -9,15 +9,16 @@ import { useMutation, useQueryClient } from "react-query";
 import ALL_WORDS from "@data/W.json";
 import { KEY_ROWS } from "@lib/utils/constants";
 // import toast from "react-hot-toast";
-import WinningCarousel from "../WinningCarousel";
+// import WinningCarousel from "../WinningCarousel";
 import { postSolve } from "@lib/axios/api";
-import Defn from "../Defn";
-import Hints from "../Messages/Hints";
-import HowToPlay from "../Messages/HowToPlay";
-import KeyboardLetter from "../KeyboardLetter";
-import GameStateLetter from "../GameStateLetter";
-import GameHud from "../GameHub";
+// import Defn from "../Defn";
+// import Hints from "../Messages/Hints";
+// import HowToPlay from "../Messages/HowToPlay";
+// import KeyboardLetter from "../KeyboardLetter";
+import GameStateLetter from "@components/GameStateLetter";
+// import GameHud from "../GameHub";
 import { shootFireworks } from "@lib/fireworks";
+import KeyboardLetter from "@components/KeyboardLetter";
 
 export interface IGameProps {
   faunaPuzzle: IFaunaPuzzle;
@@ -34,6 +35,7 @@ const Game: FC<IGameProps> = ({
 }) => {
   const firstWord = faunaPuzzle.wi;
   const finalWord = faunaPuzzle.wj;
+
   const [currWord, setCurrWord] = useState<string>(firstWord);
   const [selectedLetterIndex, setSelectedLetterIndex] = useState<number | null>(
     null
@@ -148,12 +150,12 @@ const Game: FC<IGameProps> = ({
 
   return (
     <div className="grid place-items-center align-baseline my-4">
-      <GameHud
+      {/* <GameHud
         firstWord={firstWord}
         finalWord={finalWord}
         scoring={scoring}
         score={moveStack.length - 1}
-      />
+      /> */}
 
       {/* Game State */}
       <div>
@@ -179,7 +181,7 @@ const Game: FC<IGameProps> = ({
                     </GameStateLetter>
                   );
                 })}
-                <Defn word={word} />
+                {/* <Defn word={word} /> */}
               </div>
             );
           })}
@@ -198,7 +200,7 @@ const Game: FC<IGameProps> = ({
                 {letter}
               </GameStateLetter>
             ))}
-            <Defn word={currWord} />
+            {/* <Defn word={currWord} /> */}
           </div>
         </div>
       </div>
@@ -226,8 +228,7 @@ const Game: FC<IGameProps> = ({
       <div className="mt-4 p-1">
         <div className="flex">
           <button
-            className="btn btn-error"
-            // disabled={disableUI}
+            className={`btn btn-error ${disableUI && "btn-disabled"}`}
             onClick={() => howToPlayState[1](true)}
           >
             Help
@@ -258,11 +259,10 @@ const Game: FC<IGameProps> = ({
           </Modal> */}
 
           <button
-            // disabled={disableUI}
+            className={`btn btn-error ${disableUI && "btn-disabled"}`}
             onClick={() => restart()}
-            className={`btn btn-error ${disableUI && "bt-disabled"}`}
           >
-            Try Again
+            Try Again{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -281,7 +281,7 @@ const Game: FC<IGameProps> = ({
 
           <button
             className={`btn btn-error ${
-              (disableUI || moveStack.length <= 1) && "bt-disabled"
+              (disableUI || moveStack.length <= 1) && "btn-disabled"
             }`}
             onClick={() => back()}
           >
@@ -304,7 +304,7 @@ const Game: FC<IGameProps> = ({
         </div>
       </div>
 
-      {solveObj && (
+      {/* {solveObj && (
         <WinningCarousel
           faunaUser={faunaUser}
           solveObj={solveObj}
@@ -313,7 +313,7 @@ const Game: FC<IGameProps> = ({
           setView={setView}
           setCalendarOpen={setCalendarOpen}
         />
-      )}
+      )} */}
     </div>
   );
 };

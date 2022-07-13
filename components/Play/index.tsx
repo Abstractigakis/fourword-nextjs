@@ -1,10 +1,5 @@
-import Game from "@components/Wordate/Game";
-import GameControllerFirstRow from "@components/Wordate/GameControllerFirstRow";
-import GameControllerSecondRow from "@components/Wordate/GameControllerSecondRow";
-import FuturePuzzle from "@components/Wordate/Messages/FuturePuzzle";
-import PastPuzzle from "@components/Wordate/Messages/PastPuzzle";
-import Stats from "@components/Wordate/Stats";
-import { IFaunaUser } from "@lib/faunadb/types";
+import Game from "@components/Game";
+import { IFaunaPuzzle, IFaunaUser } from "@lib/faunadb/types";
 import { DAY_ZERO, TODAY } from "@lib/utils/constants";
 import { dateToPuzzleId } from "@lib/utils/dateHelpers";
 import { useFaunaPuzzlesQuery } from "hooks";
@@ -16,79 +11,156 @@ export interface IPlayProps {
 
 const Play: FC<IPlayProps> = ({ faunaUser }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [puzzleLen, setPuzzleLen] = useState<number>(4);
-  const calendarOpen = useState<boolean>(true);
-  const viewState = useState<"game" | "stats">("game");
-  const [view, setView] = viewState;
+  const [currPuzzleDificulty, setCurrPuzzleDifficulty] = useState<
+    "Easy" | "Normal" | "Hard" | "Brutal"
+  >("Easy");
+  const calendarOpen = useState<boolean>(false);
+  const [view, setView] = useState<"Game" | "Stats">("Game");
+  // const faunaPuzzlesQuery = useFaunaPuzzlesQuery(dateToPuzzleId(selectedDate));
+  const Easy: IFaunaPuzzle = {
+    i: 0,
+    j: 0,
+    wi: "WORD",
+    wj: "WARD",
+    date: "2022-07-13",
+    solves: {
+      data: [],
+    },
+    _id: "123",
+  };
+  const Normal: IFaunaPuzzle = {
+    i: 0,
+    j: 0,
+    wi: "WORD",
+    wj: "WARD",
+    date: "2022-07-13",
+    solves: {
+      data: [],
+    },
+    _id: "124",
+  };
+  const Hard: IFaunaPuzzle = {
+    i: 0,
+    j: 0,
+    wi: "WORD",
+    wj: "HARD",
+    date: "2022-07-13",
+    solves: {
+      data: [],
+    },
+    _id: "125",
+  };
+  const Brutal: IFaunaPuzzle = {
+    i: 0,
+    j: 0,
+    wi: "WORD",
+    wj: "WARD",
+    date: "2022-07-13",
+    solves: {
+      data: [],
+    },
+    _id: "126",
+  };
+  // const faunaPuzzles = faunaPuzzlesQuery.data;
+  const faunaPuzzles = {
+    Easy,
+    Normal,
+    Hard,
+    Brutal,
+  };
 
-  const faunaPuzzlesQuery = useFaunaPuzzlesQuery(dateToPuzzleId(selectedDate));
-  const faunaPuzzles = faunaPuzzlesQuery.data;
+  const faunaPuzzle = faunaPuzzles[currPuzzleDificulty];
 
   const pastDate = selectedDate < DAY_ZERO;
   const futureDate = selectedDate > TODAY;
-  const validDate = !futureDate && !pastDate;
-
+  // const validDate = !futureDate && !pastDate;
+  const validDate = true;
   return (
-    <>
-      {faunaPuzzlesQuery.status === "success"}
-      <div className="grid place-items-center">
-        <GameControllerFirstRow
-          faunaUser={faunaUser}
-          viewState={viewState}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          modalState={calendarOpen}
-        />
+    <div className="grid place-items-center">
+      {/* Difficulty selection */}
 
-        {faunaPuzzlesQuery.status === "success" && (
-          <GameControllerSecondRow
-            faunaPuzzles={faunaPuzzles}
-            puzzleLen={puzzleLen}
-            setPuzzleLen={setPuzzleLen}
-          />
-        )}
-
-        {pastDate && (
-          <PastPuzzle
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-        )}
-
-        {futureDate && (
-          <FuturePuzzle
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-        )}
-
-        {faunaPuzzlesQuery.status === "success" &&
-          validDate &&
-          view === "game" && (
-            <Game
-              faunaPuzzle={faunaPuzzles[puzzleLen - 4]}
-              faunaUser={faunaUser}
-              setView={setView}
-              setCalendarOpen={calendarOpen[1]}
-            />
-          )}
-
-        {faunaPuzzlesQuery.status === "success" &&
-          validDate &&
-          view === "stats" && (
-            <Stats
-              faunaPuzzle={faunaPuzzles[puzzleLen - 4]}
-              faunaUser={faunaUser}
-            />
-          )}
-
-        {/* {faunaPuzzlesQuery.status === "error" && (
-          <GenericError
-            message={JSON.stringify(faunaPuzzlesQuery.error, null, 2)}
-          />
-        )} */}
+      <div className="btn-group m-2">
+        <div
+          data-title="Easy"
+          className={`btn btn-success ${
+            "Easy" !== currPuzzleDificulty && "btn-outline"
+          }`}
+          onClick={() => {
+            setCurrPuzzleDifficulty("Easy");
+          }}
+        >
+          Easy
+        </div>
+        <div
+          data-title="Normal"
+          className={`btn btn-accent ${
+            "Normal" !== currPuzzleDificulty && "btn-outline"
+          }`}
+          onClick={() => {
+            setCurrPuzzleDifficulty("Normal");
+          }}
+        >
+          Normal
+        </div>
+        <div
+          data-title="Hard"
+          className={`btn btn-warning ${
+            "Hard" !== currPuzzleDificulty && "btn-outline"
+          }`}
+          onClick={() => {
+            setCurrPuzzleDifficulty("Hard");
+          }}
+        >
+          Hard
+        </div>
+        <div
+          data-title="Brutal"
+          className={`btn btn-error ${
+            "Brutal" !== currPuzzleDificulty && "btn-outline"
+          }`}
+          onClick={() => {
+            setCurrPuzzleDifficulty("Brutal");
+          }}
+        >
+          Brutal
+        </div>
       </div>
-    </>
+      <div className="btn-group m-2">
+        <div
+          data-title="Stats"
+          className={`btn btn-secondary ${"Stats" !== view && "btn-outline"}`}
+          onClick={() => {
+            setView("Stats");
+          }}
+        >
+          Stats
+        </div>
+        <div
+          data-title="Game"
+          className={`btn btn-primary ${"Game" !== view && "btn-outline"}`}
+          onClick={() => {
+            setView("Game");
+          }}
+        >
+          Game
+        </div>
+      </div>
+      {/* Date Selection */}
+
+      {
+        // faunaPuzzlesQuery.status === "success" &&
+        validDate && view === "Game" && (
+          <Game
+            faunaPuzzle={faunaPuzzle}
+            faunaUser={faunaUser}
+            setView={setView}
+            setCalendarOpen={calendarOpen[1]}
+          />
+        )
+      }
+
+      <div>{JSON.stringify(faunaPuzzle, null, "\t")}</div>
+    </div>
   );
 };
 
