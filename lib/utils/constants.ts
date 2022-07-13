@@ -1,4 +1,4 @@
-export const KEY_ROWS = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
+export const KBD_ROWS = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
 export const MONTHS = [
   "JAN",
   "FEB",

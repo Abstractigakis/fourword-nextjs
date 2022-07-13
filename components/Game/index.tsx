@@ -7,7 +7,7 @@ import {
 import { FC, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import ALL_WORDS from "@data/W.json";
-import { KEY_ROWS } from "@lib/utils/constants";
+import { KBD_ROWS } from "@lib/utils/constants";
 // import toast from "react-hot-toast";
 // import WinningCarousel from "../WinningCarousel";
 import { postSolve } from "@lib/axios/api";
@@ -19,6 +19,7 @@ import GameStateLetter from "@components/GameStateLetter";
 // import GameHud from "../GameHub";
 import { shootFireworks } from "@lib/fireworks";
 import KeyboardLetter from "@components/KeyboardLetter";
+import Defn from "@components/Defn";
 
 export interface IGameProps {
   faunaPuzzle: IFaunaPuzzle;
@@ -150,11 +151,38 @@ const Game: FC<IGameProps> = ({
 
   return (
     <div className="grid place-items-center align-baseline my-4">
+      {/* <h3 className="text-primary text-3xl">
+          Moves : {moveStack.length - 1}
+        </h3> */}
+
+      {/* Game Header 'firstword -> second word' */}
+      <div className="flex items-center gap-1">
+        <Defn word={firstWord} />
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 rounded-lg text-primary self-center"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+            clipRule="evenodd"
+          />
+          <path
+            fillRule="evenodd"
+            d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+            clipRule="evenodd"
+          />
+        </svg>
+        <Defn word={finalWord} />
+        {/* <button className="btn btn-outline btn-accent">{finalWord}</button> */}
+      </div>
+
+      {/* <Defn word={firstWord} /> */}
       {/* <GameHud
         firstWord={firstWord}
         finalWord={finalWord}
-        scoring={scoring}
-        score={moveStack.length - 1}
       /> */}
 
       {/* Game State */}
@@ -163,31 +191,32 @@ const Game: FC<IGameProps> = ({
           {[...moveStack].reverse().map((word, index) => {
             if (index == 0) return null;
             return (
-              <div key={index} className={`flex justify-center items-center `}>
-                {word.split("").map((letter, i) => {
-                  return (
-                    <GameStateLetter
-                      key={"letter_" + i}
-                      badWord={false}
-                      selected={
-                        [...moveStack].reverse()[index - 1][i] !==
-                        [...moveStack].reverse()[index][i]
-                      }
-                      correct={finalWord[i] == letter}
-                      disabled={true}
-                      onClick={() => setSelectedLetterIndex(i)}
-                    >
-                      {letter}
-                    </GameStateLetter>
-                  );
-                })}
-                {/* <Defn word={word} /> */}
+              <div
+                key={index}
+                className={`flex justify-center gap-1  items-center  mb-2`}
+              >
+                {word.split("").map((letter, i) => (
+                  <GameStateLetter
+                    key={"letter_" + i}
+                    badWord={false}
+                    selected={
+                      [...moveStack].reverse()[index - 1][i] !==
+                      [...moveStack].reverse()[index][i]
+                    }
+                    correct={finalWord[i] == letter}
+                    disabled={true}
+                    onClick={() => setSelectedLetterIndex(i)}
+                  >
+                    {letter}
+                  </GameStateLetter>
+                ))}
+                <Defn word={word} />
               </div>
             );
           })}
         </div>
         <div className="mb-6">
-          <div className={`flex justify-items-center items-center `}>
+          <div className={`flex justify-items-center items-center gap-1`}>
             {currWord.split("").map((letter, i) => (
               <GameStateLetter
                 key={"letter_" + i}
@@ -200,41 +229,43 @@ const Game: FC<IGameProps> = ({
                 {letter}
               </GameStateLetter>
             ))}
-            {/* <Defn word={currWord} /> */}
+            <Defn word={currWord} />
           </div>
         </div>
       </div>
 
       {/* keyboard */}
       <div className="grid place-items-center">
-        {KEY_ROWS.map((keyRow, i) => {
-          return (
-            <div key={"kb_row_" + i}>
-              {keyRow.split("").map((letter, j) => (
-                <KeyboardLetter
-                  disabled={disableUI}
-                  key={"kb_letter_" + j}
-                  selected={selectedLetterIndex != null}
-                  onClick={() => lockInLetter(letter)}
+        {KBD_ROWS.map((keys, rowIndex) => (
+          <div className="flex justify-center gap-1 my-1 w-full" key={rowIndex}>
+            {
+              // @ts-ignore
+              keys.split("").map((key, keyIndex) => (
+                <kbd
+                  onClick={() => lockInLetter(key)}
+                  className={`btn btn-sm ${
+                    disableUI ? "btn-disabled" : null
+                  } btn-${
+                    selectedLetterIndex != null && !disableUI
+                      ? "accent"
+                      : "primary"
+                  }`}
+                  key={keyIndex}
                 >
-                  {letter}
-                </KeyboardLetter>
-              ))}
-            </div>
-          );
-        })}
+                  {key}
+                </kbd>
+              ))
+            }
+          </div>
+        ))}
       </div>
 
       <div className="mt-4 p-1">
-        <div className="flex">
-          <button
-            className={`btn btn-error ${disableUI && "btn-disabled"}`}
-            onClick={() => howToPlayState[1](true)}
-          >
-            Help
+        <div className="btn-group">
+          <button className={`btn ${disableUI && "btn-disabled"}`}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-6 w-6 mr-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -246,6 +277,7 @@ const Game: FC<IGameProps> = ({
                 d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
+            Help
           </button>
 
           {/* <Modal state={howToPlayState}>
@@ -262,10 +294,9 @@ const Game: FC<IGameProps> = ({
             className={`btn btn-error ${disableUI && "btn-disabled"}`}
             onClick={() => restart()}
           >
-            Try Again{" "}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-6 w-6 mr-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -277,6 +308,7 @@ const Game: FC<IGameProps> = ({
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
               />
             </svg>
+            Try Again
           </button>
 
           <button
@@ -285,10 +317,9 @@ const Game: FC<IGameProps> = ({
             }`}
             onClick={() => back()}
           >
-            Back
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-6 w-6 mr-2"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -300,6 +331,7 @@ const Game: FC<IGameProps> = ({
                 d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z"
               />
             </svg>
+            Back
           </button>
         </div>
       </div>

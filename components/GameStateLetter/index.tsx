@@ -20,16 +20,15 @@ const GameStateLetter = ({
   return (
     <button
       onClick={onClick}
-      disabled={disabled}
-      className={`m-1 w-10 h-10 rounded-md text-2xl transition-all duration-fast ${
+      className={`btn btn-outline btn-${
         selected
-          ? "bg-yellow-600 hover:bg-yellow-400"
+          ? "accent"
           : badWord
-          ? "bg-red-600 hover:bg-red-400"
+          ? "error"
           : correct
-          ? "bg-green-600 hover:bg-green-400"
-          : "bg-blue-600 hover:bg-blue-400"
-      }`}
+          ? "success"
+          : "primary"
+      } ${disabled ? "btn-disabled" : null}`}
     >
       {children}
     </button>
