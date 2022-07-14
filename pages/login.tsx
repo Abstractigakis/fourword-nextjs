@@ -1,4 +1,4 @@
-import SignInWithGoogleButton from "@components/GoogleSignInButton";
+import SignInWithGoogleButton from "@components/common/Auth/GoogleSignInButton";
 import { withRedirectLoggedInUserToProfile } from "@lib/nextAuth/middleware/server/pages";
 
 const LoginPage = () => {
