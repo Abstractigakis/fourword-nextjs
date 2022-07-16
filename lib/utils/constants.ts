@@ -17,7 +17,7 @@ export const DAYS = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
 export const DAILY_DIFFICULTIES = ["Easy", "Normal", "Hard", "Brutal"];
 
-export const DAY_ZERO = new Date(2022, 5, 1);
+export const DAY_ZERO = new Date(2022, 6, 16);
 export const TODAY = new Date();
 export const PREMIUM_DAY_ZERO = new Date(
   TODAY.getFullYear(),
