@@ -12,6 +12,7 @@ type puzzles {
   i: Int!
   j: Int!
   g: Int!
+  d: String!
   date: String!
   solves: [solves] @relation(name: "solve_puzzle")
   prod: Boolean!

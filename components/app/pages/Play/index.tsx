@@ -6,7 +6,7 @@ import PastPuzzle from "@components/app/Wordate/Messages/PastPuzzle";
 import Stats from "@components/app/Wordate/Stats";
 import PageLoading from "@components/common/PageLoading";
 import { IFaunaUser } from "@lib/faunadb/types";
-import { DAY_ZERO, TODAY } from "@lib/utils/constants";
+import { DAILY_DIFFICULTIES, DAY_ZERO, TODAY } from "@lib/utils/constants";
 import { dateToPuzzleId } from "@lib/utils/dateHelpers";
 import { useFaunaPuzzlesQuery } from "hooks";
 import { FC, useState } from "react";
@@ -16,11 +16,16 @@ export interface IPlayProps {
 }
 
 const Play: FC<IPlayProps> = ({ faunaUser }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [puzzleLen, setPuzzleLen] = useState<number>(4);
-  const calendarOpen = useState<boolean>(true);
   const viewState = useState<"game" | "stats">("game");
   const [view, setView] = viewState;
+
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const calendarOpen = useState<boolean>(true);
+
+  const [difficulty, setDifficulty] = useState<
+    "Easy" | "Normal" | "Hard" | "Brutal"
+  >("Normal");
+  const difficultyIndex = DAILY_DIFFICULTIES.indexOf(difficulty);
 
   const faunaPuzzlesQuery = useFaunaPuzzlesQuery(dateToPuzzleId(selectedDate));
   const faunaPuzzles = faunaPuzzlesQuery.data;
@@ -45,8 +50,8 @@ const Play: FC<IPlayProps> = ({ faunaUser }) => {
         {faunaPuzzlesQuery.status === "success" && (
           <GameControllerSecondRow
             faunaPuzzles={faunaPuzzles}
-            puzzleLen={puzzleLen}
-            setPuzzleLen={setPuzzleLen}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
           />
         )}
 
@@ -68,7 +73,7 @@ const Play: FC<IPlayProps> = ({ faunaUser }) => {
           validDate &&
           view === "game" && (
             <Game
-              faunaPuzzle={faunaPuzzles[puzzleLen - 4]}
+              faunaPuzzle={faunaPuzzles[difficultyIndex]}
               faunaUser={faunaUser}
               setView={setView}
               setCalendarOpen={calendarOpen[1]}
@@ -79,7 +84,7 @@ const Play: FC<IPlayProps> = ({ faunaUser }) => {
           validDate &&
           view === "stats" && (
             <Stats
-              faunaPuzzle={faunaPuzzles[puzzleLen - 4]}
+              faunaPuzzle={faunaPuzzles[difficultyIndex]}
               faunaUser={faunaUser}
             />
           )}

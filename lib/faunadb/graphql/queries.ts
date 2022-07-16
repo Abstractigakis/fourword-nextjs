@@ -10,6 +10,7 @@ export const puzzleByDateQuery = gql`
         wj
         i
         j
+        d
         date
         solves {
           data {

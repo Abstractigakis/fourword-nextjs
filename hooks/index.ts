@@ -41,7 +41,7 @@ export const useFaunaPuzzlesQuery = (puzzleId: string) => {
       if (puzzlesByDate.length == 0) {
         throw new Error("No puzzles found");
       }
-      if (puzzlesByDate.length !== 3) {
+      if (puzzlesByDate.length !== 4) {
         throw new Error(
           `${puzzlesByDate.length} puzzles found, but expected 3`
         );

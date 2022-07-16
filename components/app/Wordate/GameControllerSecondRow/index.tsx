@@ -4,23 +4,23 @@ import React, { FC } from "react";
 
 export interface IGameControllerProps {
   faunaPuzzles: IFaunaPuzzle[];
-  puzzleLen: number;
-  setPuzzleLen: Function;
+  difficulty: string;
+  setDifficulty: Function;
 }
 
 const GameController: FC<IGameControllerProps> = ({
   faunaPuzzles,
-  puzzleLen,
-  setPuzzleLen,
+  difficulty,
+  setDifficulty,
 }) => {
   return (
     <div className="flex justify-center m-2">
-      {[4, 5, 6].map((n: number) => (
+      {["Easy", "Normal", "Hard", "Brutal"].map((d: string, index: number) => (
         <Button
-          key={n}
-          type={n === puzzleLen ? "green" : "secondary"}
-          onClick={() => setPuzzleLen(n)}
-          text={`${faunaPuzzles[n - 4].wi} ${faunaPuzzles[n - 4].wj}`}
+          key={index}
+          type={d === difficulty ? "green" : "secondary"}
+          onClick={() => setDifficulty(d)}
+          text={`${faunaPuzzles[index].wi} ${faunaPuzzles[index].wj}`}
         />
       ))}
     </div>
